@@ -6,49 +6,61 @@
 <title>Duranguensed?</title>
 
 <style>
-html, body {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  overflow: hidden;
-  background: white;
-  color: black;
-  font-family: Arial, sans-serif;
-}
+  html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background: white;
+    color: black;
+    font-family: Arial, sans-serif;
+  }
 
-#ui {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
+  #ui {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+  }
 
-button {
-  padding: 15px 30px;
-  font-size: 20px;
-  border-radius: 10px;
-  border: none;
-  background: black;
-  color: white;
-  cursor: pointer;
-  margin-top: 20px;
-}
+  button {
+    padding: 15px 30px;
+    font-size: 20px;
+    border-radius: 10px;
+    border: none;
+    background: black;
+    color: white;
+    cursor: pointer;
+    margin-top: 20px;
+  }
 
-#videoWrap {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: white;
-}
+  #videoWrap {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: white;
+  }
 
-#vid {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  background: white;
-}
+  #vid {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: white;
+  }
+
+  #endButtons {
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 24px;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+  }
 </style>
 </head>
 
@@ -65,21 +77,43 @@ button {
   </video>
 </div>
 
+<div id="endButtons">
+  <button id="loopBtn">Get duranguensed again?</button>
+  <button id="nextBtn">Get dogged next?</button>
+</div>
+
 <script>
-const btn = document.getElementById("go");
-const ui = document.getElementById("ui");
-const wrap = document.getElementById("videoWrap");
-const vid = document.getElementById("vid");
+  const btn = document.getElementById("go");
+  const ui = document.getElementById("ui");
+  const wrap = document.getElementById("videoWrap");
+  const vid = document.getElementById("vid");
+  const endButtons = document.getElementById("endButtons");
+  const loopBtn = document.getElementById("loopBtn");
+  const nextBtn = document.getElementById("nextBtn");
 
-btn.addEventListener("click", () => {
-  ui.style.display = "none";
-  wrap.style.display = "block";
+  const DOG_SITE_URL = "https://cnglz.github.io/dogged-site/";
 
-  vid.currentTime = 0;
+  btn.addEventListener("click", () => {
+    ui.style.display = "none";
+    wrap.style.display = "block";
+    endButtons.style.display = "none";
+    vid.currentTime = 0;
+    vid.play();
+  });
 
-  // Play with sound (no muted attribute)
-  vid.play();
-});
+  vid.addEventListener("ended", () => {
+    endButtons.style.display = "flex";
+  });
+
+  loopBtn.addEventListener("click", () => {
+    endButtons.style.display = "none";
+    vid.currentTime = 0;
+    vid.play();
+  });
+
+  nextBtn.addEventListener("click", () => {
+    window.location.href = DOG_SITE_URL;
+  });
 </script>
 
 </body>
