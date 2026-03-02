@@ -24,7 +24,10 @@
     align-items: center;
     text-align: center;
     padding: 20px;
+    box-sizing: border-box;
   }
+
+  h1 { margin: 0; font-size: 2rem; }
 
   button {
     padding: 15px 30px;
@@ -51,15 +54,22 @@
     background: white;
   }
 
+  /* End buttons: hidden until video ends */
   #endButtons {
     display: none;
     position: fixed;
     left: 0;
     right: 0;
     bottom: 24px;
-    display: flex;
     gap: 12px;
     justify-content: center;
+    padding: 0 16px;
+    box-sizing: border-box;
+  }
+
+  #endButtons button {
+    margin-top: 0;
+    width: min(320px, 46vw);
   }
 </style>
 </head>
