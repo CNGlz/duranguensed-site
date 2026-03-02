@@ -1,65 +1,88 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Duranguensed?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Duranguensed?</title>
 
-<style>
-body {
-    margin: 0;
-    background: white;
-    color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    flex-direction: column;
-    text-align: center;
-    font-family: Arial, sans-serif;
-}
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: white;
+      color: black;
+      font-family: Arial, sans-serif;
+    }
 
-/* Button styling */
-button {
-    padding: 15px 30px;
-    font-size: 20px;
-    border-radius: 10px;
-    border: none;
-    background: black;
-    color: white;
-    cursor: pointer;
-}
+    #ui {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
 
-/* Video styling */
-video {
-    display: none;
-    width: 100vw;
-    height: 100vh;
-    object-fit: contain;   /* prevents cropping */
-    background: white;     /* matches page background */
-}
-</style>
+    button {
+      padding: 15px 30px;
+      font-size: 20px;
+      border-radius: 10px;
+      border: none;
+      background: black;
+      color: white;
+      cursor: pointer;
+      margin-top: 18px;
+    }
+
+    #videoWrap {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: white;
+    }
+
+    /* Default: show full video, no crop */
+    #vid {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: white;
+    }
+
+    /* Desktop-only: make it look bigger without cropping */
+    @media (min-width: 900px) {
+      #vid {
+        transform: scale(1.25);      /* increase if you want bigger */
+        transform-origin: center;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <div id="ui">
+    <h1>Wanna get duranguensed?</h1>
+    <button onclick="playVideo()">Yes</button>
+  </div>
 
-<h1>Wanna get duranguensed?</h1>
-<button onclick="playVideo()">Yes</button>
+  <div id="videoWrap">
+    <video id="vid" playsinline controls>
+      <source src="vacaduranguense.mp4" type="video/mp4">
+    </video>
+  </div>
 
-<video id="duranguenseVid" playsinline>
-    <source src="vacaduranguense.mp4" type="video/mp4">
-</video>
+  <script>
+    function playVideo() {
+      document.getElementById("ui").style.display = "none";
+      document.getElementById("videoWrap").style.display = "block";
 
-<script>
-function playVideo() {
-    document.querySelector("h1").style.display = "none";
-    document.querySelector("button").style.display = "none";
-
-    const video = document.getElementById("duranguenseVid");
-    video.style.display = "block";
-    video.currentTime = 0;
-    video.play();
-}
-</script>
-
+      const v = document.getElementById("vid");
+      v.currentTime = 0;
+      v.play();
+    }
+  </script>
 </body>
 </html>
