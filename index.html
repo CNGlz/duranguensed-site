@@ -6,71 +6,60 @@
 <title>Duranguensed?</title>
 
 <style>
-  html, body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    overflow: hidden;
-    background: white;
-    color: black;
-    font-family: Arial, sans-serif;
-  }
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: white;
+  color: black;
+  font-family: Arial, sans-serif;
+}
 
-  #ui {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 20px;
-    box-sizing: border-box;
-  }
+#ui {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
 
-  h1 { margin: 0; font-size: 2rem; }
+button {
+  padding: 15px 30px;
+  font-size: 20px;
+  border-radius: 10px;
+  border: none;
+  background: black;
+  color: white;
+  cursor: pointer;
+  margin-top: 20px;
+}
 
-  button {
-    padding: 15px 30px;
-    font-size: 20px;
-    border-radius: 10px;
-    border: none;
-    background: black;
-    color: white;
-    cursor: pointer;
-    margin-top: 20px;
-  }
+#videoWrap {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: white;
+}
 
-  #videoWrap {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: white;
-  }
+#vid {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: white;
+}
 
-  #vid {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    background: white;
-  }
-
-  /* End buttons: hidden until video ends */
-  #endButtons {
-    display: none;
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 24px;
-    gap: 12px;
-    justify-content: center;
-    padding: 0 16px;
-    box-sizing: border-box;
-  }
-
-  #endButtons button {
-    margin-top: 0;
-    width: min(320px, 46vw);
-  }
+/* Hidden until video ends */
+#endButtons {
+  display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 24px;
+  gap: 12px;
+  justify-content: center;
+}
 </style>
 </head>
 
@@ -93,37 +82,32 @@
 </div>
 
 <script>
-  const btn = document.getElementById("go");
-  const ui = document.getElementById("ui");
-  const wrap = document.getElementById("videoWrap");
-  const vid = document.getElementById("vid");
-  const endButtons = document.getElementById("endButtons");
-  const loopBtn = document.getElementById("loopBtn");
-  const nextBtn = document.getElementById("nextBtn");
+const ui = document.getElementById("ui");
+const wrap = document.getElementById("videoWrap");
+const vid = document.getElementById("vid");
+const endButtons = document.getElementById("endButtons");
 
-  const DOG_SITE_URL = "https://cnglz.github.io/dogged-site/";
+document.getElementById("go").addEventListener("click", () => {
+  ui.style.display = "none";
+  wrap.style.display = "block";
+  endButtons.style.display = "none";
+  vid.currentTime = 0;
+  vid.play();
+});
 
-  btn.addEventListener("click", () => {
-    ui.style.display = "none";
-    wrap.style.display = "block";
-    endButtons.style.display = "none";
-    vid.currentTime = 0;
-    vid.play();
-  });
+vid.addEventListener("ended", () => {
+  endButtons.style.display = "flex";
+});
 
-  vid.addEventListener("ended", () => {
-    endButtons.style.display = "flex";
-  });
+document.getElementById("loopBtn").addEventListener("click", () => {
+  endButtons.style.display = "none";
+  vid.currentTime = 0;
+  vid.play();
+});
 
-  loopBtn.addEventListener("click", () => {
-    endButtons.style.display = "none";
-    vid.currentTime = 0;
-    vid.play();
-  });
-
-  nextBtn.addEventListener("click", () => {
-    window.location.href = DOG_SITE_URL;
-  });
+document.getElementById("nextBtn").addEventListener("click", () => {
+  window.location.href = "https://cnglz.github.io/dogged-site/";
+});
 </script>
 
 </body>
